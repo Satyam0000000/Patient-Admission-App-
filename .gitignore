@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+dist/
+.DS_Store
+
+# Environment variables
+.env
+*.db
+
+# Editors
+*.swp
+.idea/
+.vscode/
