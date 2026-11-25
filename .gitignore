@@ -11,4 +11,7 @@ dist/
 *.swp
 .idea/
 .vscode/
+
+# Task/plan notes (not app code)
+PLAN.md
 PLAN.md
