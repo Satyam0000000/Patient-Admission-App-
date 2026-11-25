@@ -211,6 +211,30 @@ select:focus-visible {
   }
 }
 
+/* Mobile: compact 2-column form — Name/Age full width, then paired fields
+   (Gender + Ward, Department + Doctor, Admission date + Status). */
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .form-grid > label:nth-child(1),
+  .form-grid > label:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+
+  .form label {
+    font-size: 0.8rem;
+  }
+
+  .form input,
+  .form select {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
+
 .form label {
   display: flex;
   flex-direction: column;
