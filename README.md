@@ -81,28 +81,63 @@ The frontend calls `VITE_API_URL` (default `http://localhost:8000`) — set it v
 
 ## Deployment (free tier)
 
+### 0. Push the app to GitHub (public repo)
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
+git push -u origin main
+```
+
+Make sure `.env` is **not** committed (it's gitignored) — only `backend/.env.example` and `frontend/.env.example` are in the repo.
+
 ### 1. Database (Neon)
 1. Sign up at https://neon.tech (free tier).
 2. Create a project, copy the Postgres connection string.
 3. Paste it into Render's `DATABASE_URL` below. (Keep it out of GitHub — use Render's env vars.)
 
 ### 2. Backend (Render)
-1. Push this repo to GitHub (it must be public).
-2. Create a new Web Service on Render:
-   - Connect your repo, root directory `backend`
-   - Runtime: Python
-   - Build command: `pip install -r requirements.txt`
-   - Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-   - Environment variables:
-     - `DATABASE_URL` = your Neon connection string (append `?sslmode=require` if missing)
-     - `CORS_ORIGINS` = your final frontend URL, e.g. `https://your-frontend.vercel.app`
-3. Deploy, then open `https://your-backend.onrender.com/docs` — you should see the Swagger UI.
+1. Go to render.com → **New → Web Service** → connect your GitHub repo.
+2. Settings:
+   - **Root directory:** `backend`
+   - **Runtime:** Python
+   - **Build command:** `pip install -r requirements.txt`
+   - **Start command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+3. **Environment variables** (before first deploy):
+   - `DATABASE_URL` = your Neon connection string (include `?sslmode=require`)
+   - `CORS_ORIGINS` = the **exact frontend origin** you will use, e.g. `https://your-frontend.vercel.app`
+     - **Important:** no trailing slash, no path — just the origin. Example: `https://patient-admission-app-frontend.vercel.app`
+     - List multiple with commas if you use more than one (e.g. `https://app.vercel.app,https://www.app.vercel.app`)
+4. **Deploy**, then open `https://your-backend.onrender.com/docs` — you should see the Swagger UI.
+5. If you change `CORS_ORIGINS` later, **Manual Deploy → Deploy latest commit** (env changes alone may not redeploy).
 
-### 3. Frontend (Vercel or Netlify)
-1. Import the repo, root directory `frontend`, framework Vite.
-2. Set environment variable `VITE_API_URL` = the live backend URL (e.g. `https://your-backend.onrender.com`) — set it **before** the first deploy.
-3. Build command: `npm run build` (default), output `dist` (default).
-4. Save the live URL — add it to Render's `CORS_ORIGINS` and re-deploy the backend if you changed it.
+### 3. Frontend (Vercel)
+1. Go to vercel.com → **Add New → Project** → import the same GitHub repo.
+2. Settings:
+   - **Root directory:** `frontend`
+   - **Framework preset:** Vite (auto-detected)
+   - **Build command:** `npm run build`
+   - **Output directory:** `dist`
+3. **Environment variable — set BEFORE the first deploy:**
+   - `VITE_API_URL` = the **live Render backend URL** (e.g. `https://patient-admission-app-j15x.onrender.com`), no trailing slash.
+4. Click **Deploy**. You'll get a URL like `https://your-frontend.vercel.app`.
+
+### 4. Link backend ↔ frontend (CORS)
+1. Now that the frontend has a real URL, go back to Render → your backend service.
+2. Update `CORS_ORIGINS` to the exact frontend URL, e.g. `https://your-frontend.vercel.app` (no trailing slash).
+3. Save → **Manual Deploy → Deploy latest commit**.
+4. Verify it worked (in terminal):
+   ```bash
+   curl -H "Origin: https://your-frontend.vercel.app" \
+        -D- -o /dev/null \
+        https://your-backend.onrender.com/options | grep -i access-control
+   ```
+   Expect to see: `access-control-allow-origin: https://your-frontend.vercel.app`
+5. Hard-refresh the Vercel page (Cmd/Ctrl+Shift+R) — the CORS errors should be gone.
+
+### Live links
+- Frontend: https://YOUR-FRONTEND-URL
+- Backend API: https://YOUR-BACKEND-URL
+- API docs (Swagger): https://YOUR-BACKEND-URL/docs
 
 ### Notes
 - Free hosting may sleep when idle — the first request can take ~30 seconds.
@@ -111,10 +146,11 @@ The frontend calls `VITE_API_URL` (default `http://localhost:8000`) — set it v
 ## Testing
 
 Run locally:
-1. Start backend (`cd backend && .venv/bin/uvicorn app.main:app --reload` or `venv/bin/uvicorn` on Windows).
+1. Start backend (`cd backend && ./venv/bin/uvicorn app.main:app --reload` or `venv\Scripts\activate` + `uvicorn app.main:app --reload` on Windows).
 2. Start frontend (`cd frontend && npm run dev`).
 3. Try every feature in the browser: add, list, search, filters, edit, discharge, delete (confirm dialog), mobile/desktop widths.
 4. Try backend rules directly in `/docs` — bad names, age 121, future dates, unknown dropdown values → expect clear errors.
+5. Live check: open the Vercel frontend → add a patient → **refresh the page** → patient still there (proves Neon persistence).
 
 ## Screenshots
 
