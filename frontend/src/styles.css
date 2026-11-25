@@ -184,31 +184,50 @@ select:focus-visible {
   z-index: 1;
 }
 
-/* Compact icon buttons with native tooltips (title attr) */
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
-  padding: 0;
-  font-size: 1rem;
+/* Action buttons (table + cards), like the original version */
+.actions {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.actions button,
+.card-actions button {
+  margin: 0 4px 4px 0;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  min-height: 30px;
   border: 1px solid var(--border);
   border-radius: 5px;
   background: #fff;
-  color: var(--muted);
+  color: var(--accent);
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.icon-btn:hover {
-  color: var(--accent);
+.actions button:hover,
+.card-actions button:hover {
   border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
 }
 
-.icon-btn.danger:hover {
+.actions button.danger,
+.card-actions button.danger {
   color: var(--danger);
+}
+
+.actions button.danger:hover,
+.card-actions button.danger:hover {
+  background: var(--danger);
   border-color: var(--danger);
+  color: #fff;
+}
+
+.actions button:focus-visible,
+.card-actions button:focus-visible {
+  outline: 2px solid #6ea8fe;
+  outline-offset: 2px;
 }
 
 /* Table actions column */
@@ -560,10 +579,10 @@ select:focus-visible {
   }
 
   .patient-card .card-actions > button {
-    min-height: 32px;
-    min-width: 32px;
-    padding: 0;
-    font-size: 0.85rem;
+    min-height: 36px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
   }
 
   .card-meta div {

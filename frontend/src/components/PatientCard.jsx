@@ -1,23 +1,18 @@
-// Mobile card: one card per patient, shows key fields and action buttons at the bottom.
-export default function PatientCard({
-  patient,
-  onEdit,
-  onDischarge,
-  onDelete,
-}) {
+// Mobile card: one card per patient with key fields and labeled action buttons at the bottom.
+export default function PatientCard({ patient, onEdit, onDischarge, onDelete }) {
   return (
     <div className="patient-card">
       <div className="card-actions">
-        <button type="button" title="Edit" aria-label={`Edit ${patient.name}`} onClick={() => onEdit(patient.id)}>
-          ✎
+        <button type="button" onClick={() => onEdit(patient.id)}>
+          Edit
         </button>
         {patient.status !== "Discharged" && (
-          <button type="button" title="Mark Discharged" aria-label={`Mark ${patient.name} discharged`} onClick={() => onDischarge(patient.id)}>
-            ✓
+          <button type="button" onClick={() => onDischarge(patient.id)}>
+            Discharge
           </button>
         )}
-        <button type="button" title="Delete" aria-label={`Delete ${patient.name}`} onClick={() => onDelete(patient.id)}>
-          ✕
+        <button type="button" className="danger" onClick={() => onDelete(patient.id)}>
+          Delete
         </button>
       </div>
       <h4>{patient.name}</h4>

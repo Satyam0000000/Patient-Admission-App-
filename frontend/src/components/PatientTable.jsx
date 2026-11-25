@@ -1,5 +1,5 @@
 // Desktop table of patients (sits in a scrollable wrapper with a sticky header).
-// Icon buttons have tooltips; the Discharge button is hidden for already-discharged patients.
+// Action buttons are labeled like the original version; Discharge is hidden for discharged patients.
 export default function PatientTable({
   patients,
   loading,
@@ -45,34 +45,16 @@ export default function PatientTable({
                 </span>
               </td>
               <td className="actions">
-                <button
-                  type="button"
-                  className="icon-btn"
-                  title="Edit"
-                  aria-label={`Edit ${p.name}`}
-                  onClick={() => onEdit(p.id)}
-                >
-                  ✎
+                <button type="button" className="action-btn" onClick={() => onEdit(p.id)}>
+                  Edit
                 </button>
                 {p.status !== "Discharged" && (
-                  <button
-                    type="button"
-                    className="icon-btn"
-                    title="Mark Discharged"
-                    aria-label={`Mark ${p.name} discharged`}
-                    onClick={() => onDischarge(p.id)}
-                  >
-                    ✓
+                  <button type="button" className="action-btn" onClick={() => onDischarge(p.id)}>
+                    Discharge
                   </button>
                 )}
-                <button
-                  type="button"
-                  className="icon-btn danger"
-                  title="Delete"
-                  aria-label={`Delete ${p.name}`}
-                  onClick={() => onDelete(p.id)}
-                >
-                  ✕
+                <button type="button" className="action-btn danger" onClick={() => onDelete(p.id)}>
+                  Delete
                 </button>
               </td>
             </tr>
