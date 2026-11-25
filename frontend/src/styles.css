@@ -18,81 +18,51 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-size: 16px;
 }
 
 .app {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 8px 14px 20px;
+  padding: 16px;
 }
 
-/* Header + filters: sticky top bar */
-.sticky-bar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--bg);
-  padding: 6px 0 12px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 12px;
-}
-
+/* Header */
 .header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 10px;
-  padding: 6px 0 4px;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .header .subtitle {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.header .primary {
-  min-height: 44px;
+  font-size: 0.9rem;
 }
 
 /* Buttons */
 .primary, .ghost, .danger {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  justify-content: center;
-  min-height: 40px;
-  padding: 9px 14px;
-  font-size: 0.9rem;
+  padding: 8px 14px;
   border-radius: 6px;
-  cursor: pointer;
-  touch-action: manipulation;
   border: 1px solid var(--accent);
   background: var(--accent);
   color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
-.primary:hover, .ghost:hover, .danger:hover {
-  filter: brightness(1.05);
-}
-
-.ghost {
-  background: #fff;
-  color: var(--accent);
-}
-
-.danger {
-  background: #fff;
-  color: var(--danger);
-  border-color: var(--danger);
-}
+.primary { background: var(--accent); border-color: var(--accent); }
+.ghost { background: #fff; color: var(--accent); }
+.danger { background: #fff; color: var(--danger); border-color: var(--danger); }
 
 button:disabled {
   opacity: 0.5;
@@ -110,49 +80,58 @@ select:focus-visible {
 .filterbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   align-items: flex-end;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .filter-search {
-  flex: 1 1 200px;
-  min-width: 160px;
-  padding: 10px 12px;
+  min-width: 180px;
+  padding: 9px 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
-  font-size: 0.9rem;
 }
 
 .filter-select {
-  flex: 1 1 140px;
-  min-width: 120px;
-  padding: 10px 12px;
+  min-width: 150px;
+  padding: 9px 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: #fff;
   color: var(--text);
 }
 
-.clear-btn {
-  margin-left: auto;
+/* Alerts */
+.alerts {
+  margin-bottom: 12px;
 }
 
-/* Result count */
-.result-count {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin: 2px 0 10px;
+.alert {
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
 }
 
-/* Patient table (desktop) */
+.alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.alert-success {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+}
+
+/* Patient table */
 .table-wrapper {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
-  overflow: auto;
-  max-height: 70vh;
-  margin-bottom: 12px;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
 .patients {
@@ -164,457 +143,130 @@ select:focus-visible {
 .patients td {
   padding: 9px 12px;
   border-bottom: 1px solid var(--border);
-  font-size: 0.9rem;
+  text-align: left;
+  font-size: 0.92rem;
+  white-space: nowrap;
 }
 
-.patients th {
-  min-width: 90px;
-}
-
-.patients th.col-actions {
-  width: 170px;
-  text-align: center;
+.patients .admission {
+  white-space: nowrap;
 }
 
 .patients thead th {
   background: #f9fafb;
   font-weight: 600;
   position: sticky;
-  top: calc(var(--sticky-top, 0px) + 2px);
+  top: 0;
   z-index: 1;
 }
 
-/* Action buttons (table + cards), like the original version */
-.actions {
-  text-align: center;
-  white-space: nowrap;
+.actions button {
+  margin-right: 4px;
 }
 
-.actions button,
-.card-actions button {
-  margin: 0 4px 4px 0;
-  padding: 6px 12px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  min-height: 30px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: #fff;
-  color: var(--accent);
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.actions button:hover,
-.card-actions button:hover {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #fff;
-}
-
-.actions button.danger,
-.card-actions button.danger {
-  color: var(--danger);
-}
-
-.actions button.danger:hover,
-.card-actions button.danger:hover {
-  background: var(--danger);
-  border-color: var(--danger);
-  color: #fff;
-}
-
-.actions button:focus-visible,
-.card-actions button:focus-visible {
-  outline: 2px solid #6ea8fe;
-  outline-offset: 2px;
-}
-
-/* Table actions column */
-.patients td.actions,
-.patients th.actions {
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* Delete confirmation modal */
-.modal-backdrop.confirm {
-  align-items: center;
-}
-
-.confirm-modal {
-  max-width: 460px;
-  padding: 22px 26px;
-}
-
-.confirm-text {
-  font-size: 0.95rem;
-  margin: 8px 0 0;
-}
-
-.confirm-text strong {
-  font-weight: 600;
-}
-
-.confirm-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
-
-/* Badges */
 .badge {
-  padding: 3px 9px;
+  padding: 3px 8px;
   border-radius: 12px;
   font-size: 0.78rem;
   font-weight: 600;
-}
-
-.badge-admitted {
   background: #e0e7ff;
   color: var(--accent);
 }
 
-.badge-discharged {
+.badge.discharged {
   background: #f3f4f6;
   color: #6b7280;
 }
 
-/* Empty + loading */
 .empty {
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+}
+
+/* Add / Edit form */
+.form {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
-  text-align: center;
-  padding: 24px;
+  padding: 16px;
+  margin-bottom: 12px;
 }
 
-.empty-text {
-  font-size: 0.95rem;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.loading {
-  padding: 18px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-/* Pagination */
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  padding: 10px 0;
-}
-
-.page-btn {
-  min-height: 38px;
-  padding: 0 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: #fff;
-  color: var(--text);
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.page-btn:hover:not(:disabled) {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.page-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.page-num-active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
-.dots {
-  color: var(--muted);
-  font-size: 1rem;
-}
-
-.page-hint {
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-left: auto;
-}
-
-/* Modals */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background: rgba(15, 23, 42, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadein 0.15s ease;
-}
-
-.modal-backdrop.closing {
-  animation: fadeout 0.15s ease forwards;
-}
-
-@keyframes fadein {
-  from { opacity: 0; }
-}
-
-@keyframes fadeout {
-  to { opacity: 0; }
-}
-
-.modal-wrap {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px 20px;
-  width: min(540px, calc(100% - 24px));
-  max-height: 88vh;
-  overflow-y: auto;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
-}
-
-.modal-title {
+.form h2 {
   margin: 0 0 12px;
   font-size: 1.1rem;
 }
 
-.modal-x {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  font-size: 1.3rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
-.modal-form {
-  position: relative;
-}
-
-.modal-grid {
+.form-grid {
   display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.modal-grid label {
+@media (max-width: 800px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form label {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
-.modal-grid input,
-.modal-grid select {
-  padding: 9px 10px;
+.form input,
+.form select {
+  padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
-  font-size: 0.95rem;
-  min-height: 40px;
-  background: #fff;
-  color: var(--text);
+  font-size: 0.92rem;
 }
 
-.modal-server-error {
-  margin-bottom: 8px;
-  padding: 8px 10px;
-  font-size: 0.85rem;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 6px;
+.form input[type="date"] {
+  max-width: 220px;
+}
+
+.err {
   color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Modal (delete confirmation) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px 24px;
+  max-width: 340px;
+  text-align: left;
+}
+
+.modal h3 {
+  margin: 0 0 8px;
 }
 
 .modal-actions {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  margin-top: 12px;
-}
-
-.modal-actions .primary,
-.modal-actions .ghost {
-  min-height: 44px;
-  padding: 9px 16px;
-}
-
-/* Spinner for the saving state */
-.spinner {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-  vertical-align: middle;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.err {
-  font-size: 0.78rem;
-  color: var(--danger);
-}
-
-/* Toasts — floating, top-right */
-.toast-container {
-  position: fixed;
-  top: 14px;
-  right: 16px;
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.toast {
-  min-width: 240px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.toast-success {
-  border-left-color: var(--success);
-}
-
-.toast-error {
-  border-left-color: var(--danger);
-}
-
-/* Mobile layout (≤640px) */
-@media (max-width: 640px) {
-  .app {
-    padding: 0;
-  }
-
-  .sticky-bar {
-    padding: 8px 0;
-  }
-
-  .header {
-    align-items: stretch;
-  }
-
-  .header h1 {
-    font-size: 1.3rem;
-  }
-
-  .header .primary {
-    width: 100%;
-  }
-
-  /* 2-column filter grid */
-  .filterbar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .filter-search,
-  .filter-select {
-    min-width: 0;
-  }
-
-  .clear-btn {
-    margin-left: 0;
-    grid-column: 2;
-    justify-self: start;
-  }
-
-  /* Cards instead of the table */
-  .patient-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .patient-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .patient-card h4 {
-    margin: 0;
-    font-size: 1rem;
-  }
-
-  .patient-card .card-actions {
-    display: flex;
-    gap: 6px;
-    justify-content: flex-end;
-  }
-
-  .patient-card .card-actions > button {
-    min-height: 36px;
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    margin-bottom: 4px;
-  }
-
-  .card-meta div {
-    display: flex;
-    gap: 6px;
-    font-size: 0.85rem;
-    margin-bottom: 2px;
-  }
-
-  .card-meta span {
-    font-weight: 500;
-  }
-
-  .card-status {
-    margin-top: 4px;
-  }
-
-  /* Full-screen modals */
-  .modal-backdrop {
-    animation: none;
-  }
-
-  .modal-wrap {
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 0;
-    padding: 20px 16px;
-    box-shadow: none;
-  }
-
-  .modal-grid {
-    grid-template-columns: 1fr;
-  }
+  margin-top: 14px;
 }

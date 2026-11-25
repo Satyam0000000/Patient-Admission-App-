@@ -4,7 +4,7 @@ export default function FilterBar({ filters, options, onChange, onClear }) {
       <input
         className="filter-search"
         type="search"
-        placeholder="Search patients"
+        placeholder="Search by name"
         value={filters.search}
         onChange={onChange("search")}
       />
@@ -36,12 +36,7 @@ export default function FilterBar({ filters, options, onChange, onClear }) {
           </option>
         ))}
       </select>
-      <select className="filter-select filter-select-status" value={filters.status} onChange={onChange("status")}>
-        <option value="all">All statuses</option>
-        <option value="Admitted">Admitted</option>
-        <option value="Discharged">Discharged</option>
-      </select>
-      <button type="button" className="ghost clear-btn" onClick={onClear}>
+      <button type="button" className="ghost" onClick={onClear}>
         Clear filters
       </button>
     </div>
