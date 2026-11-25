@@ -79,16 +79,7 @@ npm run dev                     # http://localhost:5173
 
 The frontend calls `VITE_API_URL` (default `http://localhost:8000`) — set it via `.env` if your backend is elsewhere.
 
-## Deployment (free tier)
-
-### 0. Push the app to GitHub (public repo)
-
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
-git push -u origin main
-```
-
-Make sure `.env` is **not** committed (it's gitignored) — only `backend/.env.example` and `frontend/.env.example` are in the repo.
+## Deployment
 
 ### 1. Database (Neon)
 1. Sign up at https://neon.tech (free tier).
