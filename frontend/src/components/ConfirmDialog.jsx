@@ -1,4 +1,7 @@
-export default function ConfirmDialog({ patient, onConfirm, onCancel }) {
+// Delete confirmation modal.
+// Shows the patient's name; Cancel and Delete buttons.
+// While `loading` is true, the Delete button shows a spinner and both are disabled.
+export default function ConfirmDialog({ patient, loading = false, onConfirm, onCancel }) {
   if (!patient) return null;
   return (
     <div className="modal-backdrop">
@@ -9,11 +12,22 @@ export default function ConfirmDialog({ patient, onConfirm, onCancel }) {
           This cannot be undone.
         </p>
         <div className="modal-actions">
-          <button type="button" className="ghost" onClick={onCancel}>
+          <button
+            type="button"
+            className="ghost"
+            onClick={onCancel}
+            disabled={loading}
+          >
             Cancel
           </button>
-          <button type="button" className="danger" onClick={onConfirm}>
-            Delete
+          <button
+            type="button"
+            className="danger"
+            onClick={onConfirm}
+            disabled={loading}
+          >
+            {loading && <span className="spinner" aria-hidden="true"></span>}
+            {loading ? "Deleting…" : "Delete"}
           </button>
         </div>
       </div>

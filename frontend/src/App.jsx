@@ -127,6 +127,7 @@ export default function App() {
       />
       <ConfirmDialog
         patient={deleteTarget}
+        loading={deletingId !== null}
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
       />
