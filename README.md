@@ -19,8 +19,8 @@ A web app for hospital staff: manage admitted patients — add, view, search, fi
 |---|---|
 | Frontend | React.js (Vite), plain CSS (responsive) |
 | Backend | Python, FastAPI, Pydantic |
-| Database | PostgreSQL (SQLite for local dev), via SQLAlchemy |
-| Hosting | Frontend on Vercel/Netlify, backend on Render, DB on Neon |
+| Database | PostgreSQL |
+| Hosting | Frontend on Vercel, backend on Render, DB on Neon |
 
 Validation (required, letters-only name, age 0–120, dropdowns from a fixed list, no future admission dates) is enforced in both frontend and backend.
 
@@ -139,19 +139,7 @@ Make sure `.env` is **not** committed (it's gitignored) — only `backend/.env.e
 - Backend API: https://patient-admission-app-j15x.onrender.com
 - API docs (Swagger): https://patient-admission-app-j15x.onrender.com/docs
 
-### Notes
-- Free hosting may sleep when idle — the first request can take ~30 seconds.
-- Data persists on the live Postgres (Neon); locally it persists in `backend/patients.db`.
-
-## Testing
-
-Run locally:
-1. Start backend (`cd backend && ./venv/bin/uvicorn app.main:app --reload` or `venv\Scripts\activate` + `uvicorn app.main:app --reload` on Windows).
-2. Start frontend (`cd frontend && npm run dev`).
-3. Try every feature in the browser: add, list, search, filters, edit, discharge, delete (confirm dialog), mobile/desktop widths.
-4. Try backend rules directly in `/docs` — bad names, age 121, future dates, unknown dropdown values → expect clear errors.
-5. Live check: open the Vercel frontend → add a patient → **refresh the page** → patient still there (proves Neon persistence).
 
 ## Author
 
-Your Name <satyamgoswami2705@gmail.com>
+<satyamgoswami2705@gmail.com>
