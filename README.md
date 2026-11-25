@@ -152,10 +152,6 @@ Run locally:
 4. Try backend rules directly in `/docs` — bad names, age 121, future dates, unknown dropdown values → expect clear errors.
 5. Live check: open the Vercel frontend → add a patient → **refresh the page** → patient still there (proves Neon persistence).
 
-## Screenshots
-
-Add screenshots of the app at three widths into `screenshots/` (`desktop.png`, `tablet.png`, `mobile.png`) and of the add form, delete dialog and filters (`form.png`, `delete.png`, `filters.png`).
-
 ## Author
 
-Your Name <your.email@example.com>
+Your Name <satyamgoswami2705@gmail.com>
