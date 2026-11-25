@@ -131,7 +131,8 @@ select:focus-visible {
   border-radius: 8px;
   overflow-x: auto;
   overflow-y: auto;
-  height: 300px; /* ~6 patient rows visible; the rest scroll */
+  min-height: 90px;  /* small when there are few patients */
+  max-height: 300px; /* grows with more rows; stops ~6 rows, then scrolls */
 }
 
 .patients {
