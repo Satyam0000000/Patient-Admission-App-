@@ -106,6 +106,16 @@ export default function App() {
     }, 0);
   };
 
+  // Clicking Edit scrolls down to the form below the list.
+  const handleEdit = (id) => {
+    setEditingId(id);
+    setTimeout(() => {
+      document
+        .getElementById("add-patient-form")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
+
   return (
     <main className="app">
       <Header onAddPatient={addPatient} />
@@ -121,7 +131,7 @@ export default function App() {
       <PatientList
         patients={patients}
         loading={loading}
-        onEdit={(id) => setEditingId(id)}
+        onEdit={handleEdit}
         onDelete={(id) =>
           setDeleteTarget(patients.find((p) => p.id === id) || { id })
         }
