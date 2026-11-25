@@ -108,7 +108,7 @@ export default function PatientForm({ patient, options, onSaved, onCancel }) {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" id="add-patient-form" onSubmit={handleSubmit}>
       <h2>{patient ? "Edit patient" : "Add new patient"}</h2>
       {errors.general && <div className="err">{errors.general}</div>}
       <div className="form-grid">
