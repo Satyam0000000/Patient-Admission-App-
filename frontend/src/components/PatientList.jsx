@@ -4,6 +4,8 @@ export default function PatientList({
   onEdit,
   onDelete,
   onDischarge,
+  deletingId = null,
+  dischargingId = null,
 }) {
   if (loading && patients.length === 0) {
     return <div className="empty">Loading patients…</div>;
@@ -51,12 +53,22 @@ export default function PatientList({
                 <button
                   className="ghost"
                   onClick={() => onDischarge(p.id)}
-                  disabled={p.status === "Discharged"}
+                  disabled={p.status === "Discharged" || dischargingId === p.id}
                 >
-                  Discharge
+                  {dischargingId === p.id && (
+                    <span className="spinner" aria-hidden="true"></span>
+                  )}
+                  {dischargingId === p.id ? "Discharging…" : "Discharge"}
                 </button>
-                <button className="danger" onClick={() => onDelete(p.id)}>
-                  Delete
+                <button
+                  className="danger"
+                  onClick={() => onDelete(p.id)}
+                  disabled={deletingId === p.id}
+                >
+                  {deletingId === p.id && (
+                    <span className="spinner" aria-hidden="true"></span>
+                  )}
+                  {deletingId === p.id ? "Deleting…" : "Delete"}
                 </button>
               </td>
             </tr>

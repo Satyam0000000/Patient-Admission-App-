@@ -27,6 +27,8 @@ export default function App() {
   const [editingId, setEditingId] = useState(null); // null = no form; "new" = add; number = edit
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+  const [dischargingId, setDischargingId] = useState(null);
   const [apiError, setApiError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -66,24 +68,31 @@ export default function App() {
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
+    const id = deleteTarget.id;
+    setDeletingId(id);
     try {
-      await apiRequest(`/patients/${deleteTarget.id}`, { method: "DELETE" });
+      await apiRequest(`/patients/${id}`, { method: "DELETE" });
       setSuccess(`Patient ${deleteTarget.name} deleted.`);
       setDeleteTarget(null);
       loadPatients(filters);
     } catch (e) {
       setApiError(e.message);
+    } finally {
+      setDeletingId(null);
       setDeleteTarget(null);
     }
   };
 
   const handleDischarge = async (id) => {
+    setDischargingId(id);
     try {
       await apiRequest(`/patients/${id}/discharge`, { method: "PATCH" });
       setSuccess("Marked as Discharged.");
       loadPatients(filters);
     } catch (e) {
       setApiError(e.message);
+    } finally {
+      setDischargingId(null);
     }
   };
 
@@ -107,6 +116,8 @@ export default function App() {
           setDeleteTarget(patients.find((p) => p.id === id) || { id })
         }
         onDischarge={handleDischarge}
+        deletingId={deletingId}
+        dischargingId={dischargingId}
       />
       <PatientForm
         patient={editingId === "new" ? null : editPatient}

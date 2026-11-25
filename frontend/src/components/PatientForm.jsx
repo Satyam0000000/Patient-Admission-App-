@@ -195,6 +195,7 @@ export default function PatientForm({ patient, options, onSaved, onCancel }) {
       </div>
       <div className="form-actions">
         <button type="submit" className="primary" disabled={saving}>
+          {saving && <span className="spinner" aria-hidden="true"></span>}
           {saving ? "Saving…" : patient ? "Save changes" : "Add patient"}
         </button>
         <button type="button" className="ghost" onClick={onCancel}>
