@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiRequest } from "../api";
 
 const FIELD_LABELS = {
@@ -64,6 +64,12 @@ export default function PatientForm({ patient, options, onSaved, onCancel }) {
   const [form, setForm] = useState(initialForm(patient));
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
+
+  // When the form opens in "Edit" mode (or the patient changes),
+  // pre-fill all fields from the patient object.
+  useEffect(() => {
+    setForm(initialForm(patient));
+  }, [patient]);
 
   const change = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
