@@ -96,9 +96,19 @@ export default function App() {
     }
   };
 
+  // Clicking "+ Add patient" scrolls down to the form right below the list.
+  const addPatient = () => {
+    setEditingId("new");
+    setTimeout(() => {
+      document
+        .getElementById("add-patient-form")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
+
   return (
     <main className="app">
-      <Header onAddPatient={() => setEditingId("new")} />
+      <Header onAddPatient={addPatient} />
       <FilterBar
         filters={filters}
         options={options}
