@@ -135,9 +135,9 @@ Make sure `.env` is **not** committed (it's gitignored) — only `backend/.env.e
 5. Hard-refresh the Vercel page (Cmd/Ctrl+Shift+R) — the CORS errors should be gone.
 
 ### Live links
-- Frontend: https://YOUR-FRONTEND-URL
-- Backend API: https://YOUR-BACKEND-URL
-- API docs (Swagger): https://YOUR-BACKEND-URL/docs
+- Frontend: https://patient-admission-app-frontend.vercel.app
+- Backend API: https://patient-admission-app-j15x.onrender.com
+- API docs (Swagger): https://patient-admission-app-j15x.onrender.com/docs
 
 ### Notes
 - Free hosting may sleep when idle — the first request can take ~30 seconds.
